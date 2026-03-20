@@ -75,3 +75,31 @@ exports.deleteMember = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+// RESET password (admin only)
+exports.resetPassword = async (req, res) => {
+  try {
+    const { userId, newPassword } = req.body;
+
+    const bcrypt = require("bcryptjs");
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { password: hashedPassword },
+      { new: true }
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      message: "Password reset successfully",
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
