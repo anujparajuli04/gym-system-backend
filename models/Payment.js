@@ -11,6 +11,11 @@ const paymentSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    plan: {
+      type: String,
+      enum: ["1_month", "2_month", "3_month"],
+      default: "1_month",
+    },
     status: {
       type: String,
       enum: ["paid", "unpaid", "pending"],
@@ -26,6 +31,12 @@ const paymentSchema = new mongoose.Schema(
     },
     paidAt: {
       type: Date,
+    },
+    expiryDate: {
+      type: Date,
+    },
+    daysRemaining: {
+      type: Number,
     },
   },
   { timestamps: true }

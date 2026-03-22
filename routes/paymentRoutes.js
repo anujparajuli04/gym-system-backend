@@ -6,11 +6,16 @@ const {
   createPayment,
   getMyPayments,
   updatePaymentStatus,
+  getPricing,
+  setPricing,
+  sendPaymentWarning,
 } = require("../controllers/paymentController");
 
-// only admin can create and update payments
+router.get("/pricing", protect, getPricing);
+router.post("/pricing", protect, authorizeRoles("admin"), setPricing);
 router.post("/create", protect, authorizeRoles("admin"), createPayment);
 router.get("/my", protect, getMyPayments);
 router.put("/update/:id", protect, authorizeRoles("admin"), updatePaymentStatus);
+router.post("/warning", protect, authorizeRoles("admin"), sendPaymentWarning);
 
 module.exports = router;
