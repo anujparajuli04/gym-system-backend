@@ -15,6 +15,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const trainerRoutes = require("./routes/trainerRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 
+const defaultWorkoutRoutes = require("./routes/defaultWorkoutRoutes");
 
 
 // Middleware
@@ -31,6 +32,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/trainer", trainerRoutes);
 app.use("/api/notification", notificationRoutes);
 
+app.use("/api/default-workout", defaultWorkoutRoutes);
 
 // Test route
 app.get("/", (req, res) => {
